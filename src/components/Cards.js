@@ -16,13 +16,13 @@ const updatedLike = {...this.props.details};
       // console.log(localStorage._like)
 
 		}
-		else if(Date.now()-localStorage._like  >= 10*1000){
+		else if(Date.now()-localStorage._like  >= 24*60*60*1000){
       localStorage._like = Date.now();
       this.addLike()
          console.log("this is more then 10 sec")
 		}
 		else{
-			alert("თქვენ შეგიძლიათ მოიწონოთ რესტორანი 24 საათში ერთხელ!")
+			alert("თქვენ შეგიძლიათ მოიწონოთ რესტორანი "+ this.props.countLeftedTime() + "საათში ერთხელ!")
 		}
      };
 

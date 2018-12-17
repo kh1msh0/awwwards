@@ -53,21 +53,6 @@ class App extends React.Component {
     return allLikes;
   };
 
-
-    saveValues = () => {
-		if (localStorage._like === undefined) {
-			localStorage._like = Date.now();
-      console.log(localStorage._like)
-		}
-		else if(Date.now()-localStorage._like  >= 10*1000){
-			localStorage._like = Date.now();
-         console.log("this is more then 10 sec")
-		}
-		else{
-			console.log("big error")
-		}
-     };
-
   updateLike = (key, updatedLike) => {
     const restaurants = { ...this.state.restaurants };
     restaurants[key] = updatedLike;
@@ -75,12 +60,17 @@ class App extends React.Component {
   };
   remove=()=>{
     localStorage.removeItem("_like");
-  }
-  countTimeLeft = ()=>{
-    const passTime = Date.now()-localStorage.like 
+  };
+
+  countLeftedTime = ()=>{
+    const passTime = Date.now()-localStorage._like
     const leftTime = 24*60*60*1000-passTime
-    console.log(leftTime)
-   }
+    const time = leftTime/1000/60/60
+    console.log(time.toFixed(2))
+    return time.toFixed(2)
+   };
+   
+
 
   render() {
     let allLikes;
@@ -90,6 +80,7 @@ class App extends React.Component {
     return (
       <div className="root">
         <Header />
+        <button onClick={this.countLeftedTime}>bla bla</button>
         <button onClick={this.remove}>remove</button>
         <div className="justify-content-end" style={{ display: "flex" }}>
           <a href="admin" className="btn btn-primary">
@@ -113,6 +104,7 @@ class App extends React.Component {
                 details={this.state.restaurants[key]}
                 updateLike={this.updateLike}
                 saveValues={this.saveValues}
+                countLeftedTime={this.countLeftedTime}
                 // allLikes={this.counter}
               />
             ))}
